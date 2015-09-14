@@ -1,0 +1,51 @@
+package teamie.ayesh.wikigame;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
+
+import teamie.ayesh.wikigame.activity.DashboardActivity;
+
+
+/**
+ * Splash screen activity
+ */
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        setContentView(R.layout.activity_main);
+
+
+        Shimmer shimmer = new Shimmer();
+
+        ShimmerTextView splashTextView = (ShimmerTextView) findViewById(R.id.splashTextView);
+        shimmer.start(splashTextView);
+
+
+        Thread timerThread = new Thread() {
+            public void run() {
+                try {
+
+                    sleep(3000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
+        timerThread.start();
+    }
+
+
+}
